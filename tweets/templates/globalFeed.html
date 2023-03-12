@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% load static %}
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+    </head>
+    
+    {% block content %}
+    <link rel="stylesheet" href="{% static 'globalFeed.css' %}" />
+    <main>
+
+        <h1>Inicio</h1>
+        <form action="{% url 'postTweet' %}" method="POST">
+            {% csrf_token %}
+            {{form}}
+            <button>
+                Twittear
+            </button>
+        </form>
+        <div class="tweets">
+
+            {% for tweet in tweets %}
+                <div class="{% if tweet.parent_tweet != null %} reply {% else %} tweet {% endif %}">
+                    <h4>{{tweet.user.username}}</h4>
+                    <p>{{tweet.content}}</p>
+                    <div class="buttons">
+                        <form>
+                            <button class="msgButton">
+                                msg
+                            </button>
+                        </form>
+                        <form action="{% url 'like' tweet.id %}">
+                            <button>
+                                like
+                            </button>
+                            {% if tweet.likes != 0 %}
+                                <p>{{tweet.likes}}</p>
+                            {% endif %}
+                        </form>
+                        <form>
+                            <button>
+                                retweet
+                            </button>
+                        </form>
+                    
+                    </div>
+                    {% if  tweet.user.username == user.username %}
+                        <form action="{% url 'deleteTweet' tweet.id %}">
+                            <button>
+                                Delete
+                            </button>
+                        </form>
+                    {% endif %}
+
+                    <form action="{% url 'responseTweet' tweet.id %}" method="POST" class="formResponse"> 
+                        {% csrf_token %}
+                        <input type="text" class="response" name="contentResponse">
+                        <button class="responseButton">
+                            Twittear
+                        </button>
+                    </form>
+                    
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    <script>
+        let formResponse = document.querySelector('.formResponse')
+        let msgButton = document.querySelector('.msgButton')
+        msgButton.addEventListener('click', (e)=>{
+            e.preventDefault()
+            formResponse.style.display = "block"
+                
+            
+
+        })
+    </script>
+{% endblock content %}
+</html>

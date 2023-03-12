@@ -52,4 +52,4 @@ def signin(request):
             })
         else:
             login(request, user)
-            return redirect('/globalFeed')
+            return redirect('globalFeed')
