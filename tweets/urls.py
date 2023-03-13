@@ -4,9 +4,11 @@ from . import views
 urlpatterns = [
 
     path('', views.globalFeed, name='globalFeed'),
-    path('post/', views.postTweet, name="postTweet"),
-    path('post/response/<int:id>', views.responseTweet, name="responseTweet"),
+    path('tweet/', views.postTweet, name="postTweet"),
+    path('tweet/response/<int:id>', views.responseTweet, name="responseTweet"),
+    path('tweet/detail/<int:id>', views.tweetDetails, name="tweetDetails"),
     path('like/<int:id>', views.like, name="like"),
     path('like/<int:id>/delete', views.deleteTweet, name="deleteTweet"),
+    path('search/', views.searchTweet, name="search"),
     
 ]

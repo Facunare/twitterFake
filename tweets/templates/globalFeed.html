@@ -23,7 +23,8 @@
         <div class="tweets">
 
             {% for tweet in tweets %}
-                <div class="{% if tweet.parent_tweet != null %} reply {% else %} tweet {% endif %}">
+               
+                <a href="{% url 'tweetDetails' tweet.id %}" class="{% if tweet.parent_tweet != null %} reply {% else %} tweet {% endif %}">
                     <h4>{{tweet.user.username}}</h4>
                     <p>{{tweet.content}}</p>
                     <div class="buttons">
@@ -63,11 +64,12 @@
                         </button>
                     </form>
                     
-                </div>
+                </a>
+                
             {% endfor %}
         </div>
     </main>
-    <script>
+    {% comment %} <script>
         let formResponse = document.querySelector('.formResponse')
         let msgButton = document.querySelector('.msgButton')
         msgButton.addEventListener('click', (e)=>{
@@ -77,6 +79,6 @@
             
 
         })
-    </script>
+    </script> {% endcomment %}
 {% endblock content %}
 </html>
