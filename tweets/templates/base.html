@@ -7,21 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'base.css' %}" />
     <title>Buy</title>
-    
+
   </head>
   <body>
-    <nav class="navbar">
-      <div class="navbar__hamburguer">
+    <nav class="navbar-1">
         <ul>
-          <form action="{% url 'search' %}">
-            <input type="text" class="searchbar" name="search">
-            <button>
-              Search
-            </button>
-          </form>
-
-          <li><a href="{% url 'globalFeed' %}">HOME</a></li>
+          <img src="{% static 'logo.png' %}"></img>
           {% if user.is_authenticated %}
+          <li><a href="{% url 'globalFeed' %}">INICIO</a></li>
+          <li><a href="{% url 'myProfile' user.username %}">MI PERFIL</a></li>
           <li><a href="{% url 'logout' %}">LOG OUT</a></li>
           {% comment %} <li><a href="{% url 'profile' %}">MI PERFIL</a></li> {% endcomment %}
           {% else %}
@@ -29,12 +23,17 @@
           <li><a href="{% url 'signin' %}">SIGN IN</a></li>
           {% endif %}
         </ul>
-
-      
     </nav>
-
     {% block content %}
     {% endblock %}
-
+    
+    <nav class="navbar-2">
+      <form action="{% url 'search' %}">
+            <input type="text" class="searchbar" name="search">
+            <button>
+              Search
+            </button>
+          </form>
+    </nav>
   </body>
 </html>

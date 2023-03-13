@@ -14,7 +14,6 @@
         <main class="main-singin">
             <form action="/signup/" method="POST" class="form-singin">
                 {% csrf_token %}
-                <img src="{% static 'profile.svg' %}" alt="profile img" class="profile-img">
                 <div class="input-div">
                     <img src="{% static 'user.svg' %}" alt="">
                     <input placeholder="Username" type="text" name="username" id="username" autocomplete="off">

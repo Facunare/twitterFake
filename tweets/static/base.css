@@ -3,18 +3,34 @@
     padding: 0;
 }
 
-.navbar{
-    padding: 1rem 2rem;
-    background-color: blueviolet;
+body{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
+main{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-1, .navbar-2{
+    padding: 4rem 13rem;
+    background-color: #368a8e;
+    display: flex;
+    flex-direction: column;
+}
+
 
 ul{
     display: flex;
-
+    flex-direction: column;
     gap: 20px;
     color: white;
+}
+
+ul img{
+    width: 150px;
+    border-radius: 10px;
 }
 
 ul li{

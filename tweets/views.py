@@ -8,7 +8,7 @@ from .models import Tweet
 
 # 1. Landing page for unlogined people
 # 2. Profiles
-# 3. Followage and try messenger.
+# 3. Followage.
 # 4. Retweet
 # 5. Trends
 # 6. Gmail login
@@ -18,7 +18,7 @@ from .models import Tweet
 # 10. Keep tweets. ("guardados section")
 # 11. Settings section
 # 12. Admin view (Data analytics, moderate content (ban and delete accounts and tweets that are breaking the rules ))
-# 13. Design 
+# 13. messenger
 
 def globalFeed(request):
     tweets = Tweet.objects.all().filter(parent_tweet = None)
@@ -28,6 +28,7 @@ def globalFeed(request):
             'tweets': tweets
     })
 
+@login_required
 def postTweet(request):
     if request.method == 'GET':
         return render(request, 'globalFeed.html',{
@@ -37,6 +38,7 @@ def postTweet(request):
         Tweet.objects.create(user = request.user, content = request.POST['content'])
         return redirect('/')
 
+@login_required
 def like(request, id):
     tweet = Tweet.objects.get(id = id)
     user = request.user
@@ -51,16 +53,19 @@ def like(request, id):
     
     return redirect('/')
 
+@login_required
 def deleteTweet(request, id):
     tweet = Tweet.objects.get(id = id)
     tweet.delete()
     return redirect('/')
 
+@login_required
 def responseTweet(request, id):
     if request.method == "POST":
         Tweet.objects.create(user = request.user, content = request.POST['contentResponse'], parent_tweet = id)
         return redirect('/')
     
+
 def tweetDetails(request, id):
     responses = Tweet.objects.all().filter(parent_tweet = id)
     return render(request, 'tweetDetail.html',{

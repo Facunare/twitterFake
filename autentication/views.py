@@ -53,3 +53,6 @@ def signin(request):
         else:
             login(request, user)
             return redirect('globalFeed')
+        
+def landingPage(request):
+    return render(request, 'landingPage.html')
