@@ -1,10 +1,11 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-
+from profiles.models import Profiles
 # Create your views here.
 
 def signup(request):
@@ -17,6 +18,12 @@ def signup(request):
             try:
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 user.save()
+            
+                try:
+                    Profiles.objects.create(user = request.user)
+                except Exception as e:
+                    print(e)
+                    
                 return redirect('/signin/')
             except:
                 
